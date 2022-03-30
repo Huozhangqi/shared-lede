@@ -1,3 +1,6 @@
+# 状态
+[![固件编译](https://github.com/Huozhangqi/shared-lede/actions/workflows/%E5%9B%BA%E4%BB%B6%E7%BC%96%E8%AF%91CI.yml/badge.svg?branch=master)](https://github.com/Huozhangqi/shared-lede/actions/workflows/%E5%9B%BA%E4%BB%B6%E7%BC%96%E8%AF%91CI.yml)
+
 # 使用 GitHub Actions 快速定制编译 OpenWrt 固件
 
 流程文档参考[KFERMercer/OpenWrt-CI](https://github.com/KFERMercer/OpenWrt-CI)，十分感谢！
