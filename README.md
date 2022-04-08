@@ -5,7 +5,7 @@
 
 流程文档参考[KFERMercer/OpenWrt-CI](https://github.com/KFERMercer/OpenWrt-CI)，十分感谢！
 
-预置机型小米4A千兆版、小米CR6608、红米AC2100，默认编译小米4A千兆版。
+预置机型有小米4A千兆版、小米3Gv2、小米CR6606、小米CR6608、小米CR6609、红米AC2100、小米AC2100、小米4、小米3G，默认编译小米4A千兆版。
 
 需要其他机型可参考以上，并修改templet目录下的各文件，以作新增机型，[使用教程](templet/instruction.md)。
 
@@ -51,9 +51,17 @@
 
 只带luci应用、theme这两部分，流程中会转为.config，并自动补全为完整的。
 
+增减插件修改这个文件即可，以argon主题为例，格式如下：
+
+"CONFIG_PACKAGE_luci-theme-argon=y"   选中编译进固件的是这种
+
+"CONFIG_PACKAGE_luci-theme-argon=m"   选中仅编译ipk插件是这种
+
+"# CONFIG_PACKAGE_luci-theme-argon is not set"  未选中是这种
+
 > `release_content.txt`
 
-此文本仅作release记录，其中的IP、密码与固件并无关联，怎么改都可以。
+此文本仅作release记录，其中的IP、密码与固件并无关联，怎么改都可以，不修改也可以。
 
 ### 5. Actions中手动开始编译流程
 
@@ -77,6 +85,15 @@
 
 Actions流程顺利完成后，去release(或者artifact)下载你的固件，allfiles.zip是所有文件的打包。
 
+## 各机型对应文件说明
+
+|机型|文件|
+|:----:|:----:|
+|小米4A千兆版|1.config、1clone.sh、1modify.sh|
+|小米3Gv2|1-1.config、1clone.sh、1modify.sh|
+|小米4<br/>小米3G<br/>小米CR6606<br/>小米CR6608<br/>小米CR6609|2.config、2clone.sh、2modify.sh|
+|红米AC2100<br/>小米AC2100|3.config、3clone.sh、3modify.sh|
+
 ## 关于小米4A千兆版
 
 1.直接在Actions中运行`固件编译`就能编译出固件，但默认插件数量较少，对插件有增、减需要的，到`1.config`中自行选择。若在`1clone.sh`中添加了插件源，在`1.config`要作对应修改，建议先在本地make menuconfig测试。
@@ -85,8 +102,10 @@ Actions流程顺利完成后，去release(或者artifact)下载你的固件，al
 
 3.带超频方案，默认不启用，方案来自[帖子](https://www.right.com.cn/forum/thread-4042045-1-1.html)。
 
-4.该机型闪存小，若编译插件太多，包体积超出16064K，则不会生成sysupgrade.bin。<br/>
-可以去[官方插件库](https://downloads.openwrt.org/snapshots/packages/mips_24kc/packages/)参考各插件大小，下方也列出了几个较大插件的最近版本的体积:<br/>
+4.该机型闪存小，若编译插件太多，包体积超出16064K，则不会生成sysupgrade.bin。
+
+可以去[官方插件库](https://downloads.openwrt.org/snapshots/packages/mips_24kc/packages/)参考各插件大小，下方也列出了几个较大插件的最近版本的体积:
+
 UnblockNeteaseMusic-Go_0.2.13 --- 2.05MB<br/>
 luci-app-openclash_0.44.16 --- 2.14MB<br/>
 luci-app-vssr_1.23 --- 2.87MB<br/>
